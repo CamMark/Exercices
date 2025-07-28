@@ -1,6 +1,6 @@
 const express = require('express');
-// const { searchMovies } = require('./movieManager');
-const { searchMovies } = require('./movieManager.solution');
+const { searchMovies } = require('./movieManager');
+// const { searchMovies } = require('./movieManager.solution');
 
 const router = express.Router();
 
