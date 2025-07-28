@@ -13,3 +13,4 @@ La documentation du [pilote de NodeJS](https://www.mongodb.com/docs/drivers/node
 Voici les liens vers les différents exercices et leurs énoncés. Vous êtes conseillés de comencer par l'exercice d'introduction :
 
 - [`Class`](./Class/README.MD) : exercice d'évolution d'un système existant pour migrer vers une persistance à distance.
+- [`Movies`](./Movies/README.MD) : exercice sur les requêtes MongoDB complexes avec filtres, projections, tri et combinaison de plusieurs critères.

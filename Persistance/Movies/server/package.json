@@ -1,0 +1,16 @@
+{
+  "name": "movies-search-server",
+  "version": "1.0.0",
+  "description": "Serveur de recherche de films avec MongoDB",
+  "main": "main.js",
+  "scripts": {
+    "start": "node ./src/main.js"
+  },
+  "author": "LOG2440",
+  "license": "CC-BY-3.0",
+  "dependencies": {
+    "cors": "2.8.5",
+    "express": "5.1.0",
+    "mongodb": "6.18.0"
+  }
+}
