@@ -12,6 +12,15 @@ console.log(res);
 // Exercice : implémenter notre propre fonction "myMap" qui se comporte comme la méthode "map" d'un Array JS
 
 const testArray = [1,2,3];
+
+Object.getPrototypeOf(testArray).myMap= function(callback){
+  const res = [];
+  for (let i=0; i < this.length; i++){
+    res.push(callback(this[i], i, this));
+  };
+  return res;
+};
+
 res = testArray.myMap((val, index, arr) => {
   return { value: val, index: index, array: arr };
 });
