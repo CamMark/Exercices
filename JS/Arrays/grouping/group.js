@@ -6,7 +6,16 @@ const users = [
     { name: "Claire", team: 3 }
 ];
 
-const teams = [];
+const teams = users.reduce((teams,user)=>{
+    const team = teams.find(x=> x.team === user.team);
+    if(!team){
+        teams.push({team:user.team, members:[user.name]})
+    }else{
+        team.members.push(user.name)
+    }
+    return teams
+    
+},[])
 console.log(teams);
 /* Valeur attendue :
 [ { team: 1, members: [ 'Michel', 'Julie' ] },
