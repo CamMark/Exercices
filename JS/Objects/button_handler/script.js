@@ -1,16 +1,15 @@
 const ButtonHandler = {
-    getRandom: function () {
-        return Math.floor(Math.random() * 10 + 1);
-    },
-    showValue: function () {
-        const randomValue = this.getRandom();
+    
+    showValue: function (getRandom) {
+        const randomValue = getRandom();
         const display = document.getElementById("random-display");
         display.textContent = `Valeur aléatoire : ${randomValue}`;
     },
-    addHandler: function (element) {
-        element.addEventListener("click", this.showValue);
+    addHandler: function (element, getRandom) {
+        element.addEventListener("click", () => this.showValue(getRandom));
     },
 };
 
+const getRandom = () => {return Math.floor(Math.random() * 10 + 1)};
 const button = document.getElementById("btn");
-ButtonHandler.addHandler(button);
+ButtonHandler.addHandler(button, getRandom);
