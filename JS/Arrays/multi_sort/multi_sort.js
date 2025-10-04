@@ -6,7 +6,13 @@ const books = [
     { id: 5, price: 10.50, available: false },
 ];
 
-const sorted = [];
+const sorted = structuredClone(books).sort((a,b)=>{
+    if(a.available - b.available !== 0){
+        return b.available - a.available;
+    }else{
+        return  a.price - b.price  ;
+    }
+})
 
 console.log(sorted);
 /* Valeur attendue :
