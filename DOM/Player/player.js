@@ -2,10 +2,15 @@ const audio = new Audio(); // HTMLAudioElement pour jouer du son. Implémente l'
 const songs = document.getElementsByClassName('song-item');
 let selectedSong = 0;
 
-// TODO : récupérer le lien vers l'audio
-audio.src = songs[selectedSong];
-
+const btnPrev = document.getElementById("previous");
+const btnPlay = document.getElementById("play");    
+const btnNext = document.getElementById("next");
 const timeline = document.getElementById('timeline');
+
+// TODO : récupérer le lien vers l'audio
+audio.src = songs[selectedSong].dataset.url;
+
+
 
 /**
  * Associe une fonction à une chaîne de caractères.
@@ -31,14 +36,32 @@ function bindEvents() {
 
     // TODO : ajouter des gestionnaires pour les boutons de contrôle
 
+    btnNext.addEventListener("click", playNext);
+    btnPlay.addEventListener('click', () => {
+        play();
+    });
+    btnPrev.addEventListener("click", playPrevious);
+
     /// TODO : ajouter un gestionnaire à l'élément audio pour le déroulement d'une chanson
-    audio.addEventListener('todo', () => { });
+    audio.addEventListener('timeupdate', () => {
+        const position =
+            (100 * audio.currentTime) / audio.duration;
+        timeline.value = position;
+     });
 
     /// TODO : ajouter un gestionnaire à l'élément audio pour la fin d'une chanson
-    audio.addEventListener('todo', () => { });
+    audio.addEventListener('ended', () => { 
+        playNext();
+    });
 
     /// TODO : ajouter un gestionnaire sur chaque élément song-item qui joue la chanson de l'item
-
+    Array.from(songs).forEach((valeur, index)=>{
+        valeur.addEventListener("click", ()=>{
+            selectedSong = index;
+            play(valeur.dataset.url);
+        })
+    }
+    )
     /// Gestionnaire de contrôle du moment de la chanson en fonction de la barre de progrès
     timeline.addEventListener("input", () => {
         audioSeek(parseInt(timeline.value));
@@ -56,6 +79,20 @@ function bindEvents() {
  *  - L            : avancer de 5 secondes
  */
 function bindShortcuts() {
+    document.addEventListener("keydown", (event)=>{
+        const key = event.key.toUpperCase();
+        if(key === " "){
+            play();
+        }else if(key === "N"){
+            playNext();
+        }else if(key === "P"){
+            playPrevious();
+        }else if(key === "J"){
+            audioSeek(timeline.value - 5);
+        }else if(key ==="L"){
+            audioSeek(timeline.value +5);
+        }
+    })
 }
 
 bindEvents();
@@ -84,10 +121,13 @@ function play(src) {
             audio.pause();
         }
     }
-    playButton.classList.toggle('fa-pause', !audio.paused);
-    playButton.classList.toggle('fa-play', audio.paused);
+    btnPlay.classList.toggle('fa-pause', !audio.paused);
+    btnPlay.classList.toggle('fa-play', audio.paused);
 
     // TODO : mettre à jour l'affichage de l'élément 'now-playing' à partir du nom de la chanson
+
+    const affichage = document.getElementById("now-playing");
+    affichage.textContent = `On joue: ${songs[selectedSong].dataset.name}`;
 
 }
 
