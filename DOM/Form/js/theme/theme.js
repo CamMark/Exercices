@@ -41,9 +41,11 @@ backgroundPicker.addEventListener('input', (event) => {
 
 // TODO : Mettre à jour le thème dans l'espace de stockage
 document.getElementById('save-button').addEventListener('click', () => {
+    localStorage.setItem("theme", JSON.stringify(theme));
 });
 
 // TODO : Retirer le thème de l'espace de stockage
 document.getElementById('reset-button').addEventListener('click', () => {
+    localStorage.removeItem("theme");
     location.reload(); // recharge la page
 });
