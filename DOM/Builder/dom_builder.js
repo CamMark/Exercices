@@ -29,6 +29,7 @@ const schools = [{
  * @property {Object.<string,string>} rest
  */
 
+
 /**
  * @typedef {Object} School établissement de génie
  * @property {string} name nom de l'établissement
@@ -52,11 +53,19 @@ const schools = [{
  * @returns Élément HTML construit en fonction des paramètres passés
  */
 function createElement(type, props, children) {
-    const element = document.createElement(type);
     // TODO : Implémenter la fonction
-    element.append(children ? children[0] : []);
-
-    return element;
+   const nouvelElement = document.createElement(type);
+   if(props){
+        nouvelElement.id = props.id ? props.id: "";
+        nouvelElement.classList.add(...props.classes ? props.classes: []);
+        if(props.rest){
+            for(const key in props.rest){
+                nouvelElement.setAttribute(key, props.rest[key]);
+            }
+        }
+   }
+    nouvelElement.append(...children ? children : []);
+    return nouvelElement;
 }
 
 /**
@@ -66,8 +75,13 @@ function createElement(type, props, children) {
  */
 function buildSchoolCard(school) {
     // TODO
-    const card = createElement('a',
-        { id: school.id, classes: ['school-card'], rest: { href: school.link, target: '_blank' } });
+     const card = createElement('a',
+        { id: school.id, classes: ['school-card'], rest: { href: school.link, target: '_blank' } },
+        [createElement('img', { classes: ['logo'], rest: { src: `./assets/${school.logo}` } }),
+        createElement('div', { classes: ['info-container'] },
+            [createElement('p', { classes: ['info-name'] },
+                [school.name])])
+        ]);
     return card;
 }
 
